@@ -5,9 +5,14 @@ var randomPics = [];
 var clickCounter = 0;
 var maxClicks = 25;
 
+var placeholder0 = document.getElementById('placeholder-0');
+var placeholder1 = document.getElementById('placeholder-1');
+var placeholder2 = document.getElementById('placeholder-2');
+
 function getRandomPicIndex() {
   return Math.floor(Math.random() * (picStorage.length));
 }
+
 
 var pic = function (name, picture) {
   this.name = name;
@@ -24,7 +29,6 @@ var pic = function (name, picture) {
   };
   picStorage.push(this);
 };
-
 var bagPic = new pic('bag pic', './images/bag.jpg');
 var bananaPic = new pic('banana pic', './images/banana.jpg');
 var bathroomPic = new pic('bathroom pic', './images/bathroom.jpg');
@@ -46,24 +50,31 @@ var usbPic = new pic('usb pic', './images/usb.gif');
 var waterCanPic = new pic('water can pic', './images/water-can.jpg');
 var wineGlassPic = new pic('wine glass pic', './images/wine-glass.jpg');
 
+
+
+
+
 function select3PicsAndRender() {
   randomPics = [];
 
   while (randomPics.length < 3) {
-    var nextRandomValue = getRandomPicIndex;
+    var nextRandomValue = getRandomPicIndex();
 
     if (!randomPics.includes(nextRandomValue)) {
-      randomPics.push(nextRandomValue);
+      randomPics.push(picStorage[nextRandomValue]);
     }
   }
   var placeholder0 = document.getElementById('placeholder-0');
   var placeholder1 = document.getElementById('placeholder-1');
   var placeholder2 = document.getElementById('placeholder-2');
 
-  picStorage[randomPics[0]].render(placeholder0);
-  picStorage[randomPics[1]].render(placeholder1);
-  picStorage[randomPics[2]].render(placeholder2);
+
+  randomPics[0].render(placeholder0);
+  randomPics[1].render(placeholder1);
+  randomPics[2].render(placeholder2);
 }
+
+select3PicsAndRender();
 
 function clickManager(event) {
   clickCounter++;
@@ -91,19 +102,16 @@ function clickManager(event) {
 }
 
 
-// var sweaterPic = new pic('sweater pic', './images/sweater-pic.jpg')
-// var placeholder0 = document.getElementById('placeholder-0');
-// sweaterPic.render(placeholder1);
-
-var placeholder0 = document.getElementById('placeholder-0');
-var placeholder1 = document.getElementById('placeholder-1');
-var placeholder2 = document.getElementById('placeholder-2');
+// // var sweaterPic = new pic('sweater pic', './images/sweater-pic.jpg')
+// // var placeholder0 = document.getElementById('placeholder-0');
+// // sweaterPic.render(placeholder1);
+select3PicsAndRender();
 
 placeholder0.addEventListener('click', clickManager);
 placeholder1.addEventListener('click', clickManager);
 placeholder2.addEventListener('click', clickManager);
-select3PicsAndRender();
 
 
 
-console.log('hello');
+
+
