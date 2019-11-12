@@ -16,3 +16,7 @@ height: 400px;
 p {
   text-align: center;
 }
+ul {
+  list-style: none;
+  text-align: center;
+}
