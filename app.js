@@ -33,26 +33,26 @@ var pic = function (name, picture) {
   };
   picStorage.push(this);
 };
-var bagPic = new pic('bag-pic', './images/bag.jpg');
-var bananaPic = new pic('banana-pic', './images/banana.jpg');
-var bathroomPic = new pic('bathroom-pic', './images/bathroom.jpg');
-var bootsPic = new pic('boots-pic', './images/boots.jpg');
-var breakfastPic = new pic('breakfast-pic', './images/breakfast.jpg');
-var bubblegumPic = new pic('bubblegum-pic', './images/bubblegum.jpg');
-var chairPic = new pic('chiar-pic', './images/chair.jpg');
-var cthulhuPic = new pic('cthulhu-pic', './images/cthulhu.jpg');
-var dogDuckPic = new pic('dog-duck-pic', './images/dog-duck.jpg');
-var dragonPic = new pic('dragon-pic', './images/dragon.jpg');
-var penPic = new pic('pen-pic', './images/pen.jpg');
-var petSweepPic = new pic('pet-sweep-pic', './images/pet-sweep.jpg');
-var scissorsPic = new pic('scissors-pic', './images/scissors.jpg');
-var sharkPic = new pic('shark-pic', './images/shark.jpg');
-var sweepPic = new pic('sweep-pic', './images/sweep.png');
-var tauntaunPic = new pic('tauntaun-pic', './images/tauntaun.jpg');
-var unicornPic = new pic('unicorn-pic', './images/unicorn.jpg');
-var usbPic = new pic('usb-pic', './images/usb.gif');
-var waterCanPic = new pic('water-can-pic', './images/water-can.jpg');
-var wineGlassPic = new pic('wine-glass-pic', './images/wine-glass.jpg');
+var bagPic = new pic('bag pic', './images/bag.jpg');
+var bananaPic = new pic('banana pic', './images/banana.jpg');
+var bathroomPic = new pic('bathroom pic', './images/bathroom.jpg');
+var bootsPic = new pic('boots pic', './images/boots.jpg');
+var breakfastPic = new pic('breakfast pic', './images/breakfast.jpg');
+var bubblegumPic = new pic('bubblegum pic', './images/bubblegum.jpg');
+var chairPic = new pic('chiar pic', './images/chair.jpg');
+var cthulhuPic = new pic('cthulhu pic', './images/cthulhu.jpg');
+var dogDuckPic = new pic('dog duck pic', './images/dog-duck.jpg');
+var dragonPic = new pic('dragon pic', './images/dragon.jpg');
+var penPic = new pic('pen pic', './images/pen.jpg');
+var petSweepPic = new pic('pet sweep pic', './images/pet-sweep.jpg');
+var scissorsPic = new pic('scissors pic', './images/scissors.jpg');
+var sharkPic = new pic('shark pic', './images/shark.jpg');
+var sweepPic = new pic('sweep pic', './images/sweep.png');
+var tauntaunPic = new pic('tauntaun pic', './images/tauntaun.jpg');
+var unicornPic = new pic('unicorn pic', './images/unicorn.jpg');
+var usbPic = new pic('usb pic', './images/usb.gif');
+var waterCanPic = new pic('water can pic', './images/water-can.jpg');
+var wineGlassPic = new pic('wine glass pic', './images/wine-glass.jpg');
 
 
 
@@ -117,9 +117,10 @@ function clickManager(event) {
     select3PicsAndRender();
 
   } else {
-    var postQuizResults = document.getElementById('post-quiz-results');
-    printResults(postQuizResults);
-    alert('game over');
+    // - this code was to print written results of voting, replaced w createResultChart()
+    // var postQuizResults = document.getElementById('post-quiz-results');
+    // printResults(postQuizResults);
+    createResultChart();
 
   }
 
@@ -133,6 +134,54 @@ function clickManager(event) {
 
 
 
+/*
+--------------------------------CHART-------------------------------------------
+ */
 
 
+function createResultChart() {
+  var nameArray = [];
+  var clickArray = [];
+  var timesShownArray = [];
 
+  for (var i = 0; i < picStorage.length; i++) {
+    nameArray.push(picStorage[i].name);
+    clickArray.push(picStorage[i].timesClicked);
+    timesShownArray.push(picStorage[i].timesShown);
+  }
+
+
+  // vinicio - I want to draw 2d graphics into this canvas
+  var context = document.getElementById('chart').getContext('2d');
+  var picChart = new Chart(context, {
+    type: 'bar',
+    data: {
+      labels: nameArray,
+      datasets: [
+        {
+          label: 'Product votes',
+          data: clickArray,
+          backgroundColor: 'rgb(255,99,132)',
+          borderColor: 'rgb(255,99,132)',
+        },
+        {
+          label: 'Times Shown',
+          data: timesShownArray,
+          backgroundColor: 'rgb(255, 190, 204)',
+          borderColor: 'rgb(255,99,132)',
+        }
+      ],
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            }
+          },
+        ],
+      }
+    },
+  });
+}
