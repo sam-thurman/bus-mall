@@ -1,6 +1,7 @@
 'use strict';
 
 var picStorage = [];
+var PIC_DATA = 'picData';
 var randomPics = [];
 var clickCounter = 0;
 var maxClicks = 25;
@@ -31,32 +32,68 @@ var pic = function (name, picture) {
   this.render = function (domReference) {
     domReference.src = picture;
   };
+  this.loadData = function (data) {
+    this.timesClicked = data.timesClicked;
+    this.timesShown = data.timesShown;
+
+    this.name = data.name;
+    this.picture = data.picture;
+  };
   picStorage.push(this);
 };
-var bagPic = new pic('bag pic', './images/bag.jpg');
-var bananaPic = new pic('banana pic', './images/banana.jpg');
-var bathroomPic = new pic('bathroom pic', './images/bathroom.jpg');
-var bootsPic = new pic('boots pic', './images/boots.jpg');
-var breakfastPic = new pic('breakfast pic', './images/breakfast.jpg');
-var bubblegumPic = new pic('bubblegum pic', './images/bubblegum.jpg');
-var chairPic = new pic('chiar pic', './images/chair.jpg');
-var cthulhuPic = new pic('cthulhu pic', './images/cthulhu.jpg');
-var dogDuckPic = new pic('dog duck pic', './images/dog-duck.jpg');
-var dragonPic = new pic('dragon pic', './images/dragon.jpg');
-var penPic = new pic('pen pic', './images/pen.jpg');
-var petSweepPic = new pic('pet sweep pic', './images/pet-sweep.jpg');
-var scissorsPic = new pic('scissors pic', './images/scissors.jpg');
-var sharkPic = new pic('shark pic', './images/shark.jpg');
-var sweepPic = new pic('sweep pic', './images/sweep.png');
-var tauntaunPic = new pic('tauntaun pic', './images/tauntaun.jpg');
-var unicornPic = new pic('unicorn pic', './images/unicorn.jpg');
-var usbPic = new pic('usb pic', './images/usb.gif');
-var waterCanPic = new pic('water can pic', './images/water-can.jpg');
-var wineGlassPic = new pic('wine glass pic', './images/wine-glass.jpg');
+
+if (localStorage.getItem(PIC_DATA) === null) {
+  var bagPic = new pic('bag pic', './images/bag.jpg');
+  var bananaPic = new pic('banana pic', './images/banana.jpg');
+  var bathroomPic = new pic('bathroom pic', './images/bathroom.jpg');
+  var bootsPic = new pic('boots pic', './images/boots.jpg');
+  var breakfastPic = new pic('breakfast pic', './images/breakfast.jpg');
+  var bubblegumPic = new pic('bubblegum pic', './images/bubblegum.jpg');
+  var chairPic = new pic('chiar pic', './images/chair.jpg');
+  var cthulhuPic = new pic('cthulhu pic', './images/cthulhu.jpg');
+  var dogDuckPic = new pic('dog duck pic', './images/dog-duck.jpg');
+  var dragonPic = new pic('dragon pic', './images/dragon.jpg');
+  var penPic = new pic('pen pic', './images/pen.jpg');
+  var petSweepPic = new pic('pet sweep pic', './images/pet-sweep.jpg');
+  var scissorsPic = new pic('scissors pic', './images/scissors.jpg');
+  var sharkPic = new pic('shark pic', './images/shark.jpg');
+  var sweepPic = new pic('sweep pic', './images/sweep.png');
+  var tauntaunPic = new pic('tauntaun pic', './images/tauntaun.jpg');
+  var unicornPic = new pic('unicorn pic', './images/unicorn.jpg');
+  var usbPic = new pic('usb pic', './images/usb.gif');
+  var waterCanPic = new pic('water can pic', './images/water-can.jpg');
+  var wineGlassPic = new pic('wine glass pic', './images/wine-glass.jpg');
+  // picStorage.push(bagPic);
+  // picStorage.push(bananaPic);
+  // picStorage.push(bathroomPic);
+  // picStorage.push(bootsPic);
+  // picStorage.push(breakfastPic);
+  // picStorage.push(bubblegumPic);
+  // picStorage.push(chairPic);
+  // picStorage.push(cthulhuPic);
+  // picStorage.push(dogDuckPic);
+  // picStorage.push(dragonPic);
+  // picStorage.push(penPic);
+  // picStorage.push(petSweepPic);
+  // picStorage.push(scissorsPic);
+  // picStorage.push(sharkPic);
+  // picStorage.push(sweepPic);
+  // picStorage.push(tauntaunPic);
+  // picStorage.push(unicornPic);
+  // picStorage.push(usbPic);
+  // picStorage.push(waterCanPic);
+  // picStorage.push(wineGlassPic);
 
 
-
-
+} else {
+  var jsonData = localStorage.getItem(PIC_DATA);
+  var data = JSON.parse(jsonData);
+  for (var i = 0; i < data.length; i++) {
+    var newPic = new pic('', '');
+    newPic.loadData(data[i]);
+    picStorage.push(newPic);
+  }
+}
 
 function select3PicsAndRender() {
   var randomPics2 = randomPics;
@@ -82,8 +119,6 @@ function select3PicsAndRender() {
   randomPics[2].render(placeholder2);
 }
 
-
-
 select3PicsAndRender();
 function printResults(domReference) {
   for (var picStorageIndex = 0; picStorageIndex < picStorage.length; picStorageIndex++) {
@@ -98,7 +133,6 @@ placeholder2.addEventListener('click', clickManager);
 
 function clickManager(event) {
   clickCounter++;
-
 
   if (clickCounter < maxClicks) {
 
@@ -118,23 +152,18 @@ function clickManager(event) {
     select3PicsAndRender();
 
   } else {
-    // - this code was to print written results of voting, replaced w createResultChart()
-    // var postQuizResults = document.getElementById('post-quiz-results');
-    // printResults(postQuizResults);
+
+    savePicDataToLocalStorage();
     createResultChart();
 
   }
-
 }
 
 
-
-// // var sweaterPic = new pic('sweater pic', './images/sweater-pic.jpg')
-// // var placeholder0 = document.getElementById('placeholder-0');
-// // sweaterPic.render(placeholder1);
-
-
-
+function savePicDataToLocalStorage() {
+  var jsonData = JSON.stringify(picStorage);
+  localStorage.setItem(PIC_DATA, jsonData);
+}
 /*
 --------------------------------CHART-------------------------------------------
  */
@@ -186,3 +215,4 @@ function createResultChart() {
     },
   });
 }
+
