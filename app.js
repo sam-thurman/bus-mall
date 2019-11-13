@@ -63,31 +63,31 @@ if (localStorage.getItem(PIC_DATA) === null) {
   var usbPic = new pic('usb pic', './images/usb.gif');
   var waterCanPic = new pic('water can pic', './images/water-can.jpg');
   var wineGlassPic = new pic('wine glass pic', './images/wine-glass.jpg');
-  // picStorage.push(bagPic);
-  // picStorage.push(bananaPic);
-  // picStorage.push(bathroomPic);
-  // picStorage.push(bootsPic);
-  // picStorage.push(breakfastPic);
-  // picStorage.push(bubblegumPic);
-  // picStorage.push(chairPic);
-  // picStorage.push(cthulhuPic);
-  // picStorage.push(dogDuckPic);
-  // picStorage.push(dragonPic);
-  // picStorage.push(penPic);
-  // picStorage.push(petSweepPic);
-  // picStorage.push(scissorsPic);
-  // picStorage.push(sharkPic);
-  // picStorage.push(sweepPic);
-  // picStorage.push(tauntaunPic);
-  // picStorage.push(unicornPic);
-  // picStorage.push(usbPic);
-  // picStorage.push(waterCanPic);
-  // picStorage.push(wineGlassPic);
-
+  picStorage.push(bagPic);
+  picStorage.push(bananaPic);
+  picStorage.push(bathroomPic);
+  picStorage.push(bootsPic);
+  picStorage.push(breakfastPic);
+  picStorage.push(bubblegumPic);
+  picStorage.push(chairPic);
+  picStorage.push(cthulhuPic);
+  picStorage.push(dogDuckPic);
+  picStorage.push(dragonPic);
+  picStorage.push(penPic);
+  picStorage.push(petSweepPic);
+  picStorage.push(scissorsPic);
+  picStorage.push(sharkPic);
+  picStorage.push(sweepPic);
+  picStorage.push(tauntaunPic);
+  picStorage.push(unicornPic);
+  picStorage.push(usbPic);
+  picStorage.push(waterCanPic);
+  picStorage.push(wineGlassPic);
 
 } else {
   var jsonData = localStorage.getItem(PIC_DATA);
   var data = JSON.parse(jsonData);
+
   for (var i = 0; i < data.length; i++) {
     var newPic = new pic('', '');
     newPic.loadData(data[i]);
