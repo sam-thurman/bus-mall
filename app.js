@@ -59,12 +59,13 @@ var wineGlassPic = new pic('wine glass pic', './images/wine-glass.jpg');
 
 
 function select3PicsAndRender() {
+  var randomPics2 = randomPics;
   randomPics = [];
 
   while (randomPics.length < 3) {
     var nextRandomValue = getRandomPicIndex();
 
-    if (!randomPics.includes(nextRandomValue) && !randomPics.includes(picStorage[nextRandomValue])) {
+    if (!randomPics.includes(nextRandomValue) && !randomPics.includes(picStorage[nextRandomValue]) && !randomPics2.includes(picStorage[nextRandomValue])) {
       randomPics.push(picStorage[nextRandomValue]);
     }
   }
